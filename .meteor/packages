@@ -22,3 +22,4 @@ vite:bundler
 accounts-2fa
 accounts-password
 accounts-passwordless
+fetch

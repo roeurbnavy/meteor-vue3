@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-
+import { fetch } from 'meteor/fetch'
 const list = ref([])
 const form = ref({
   name: 'dary',
@@ -8,7 +8,7 @@ const form = ref({
   imageUrl: 'dary.png',
 })
 
-const save = () => {}
+const save = async () => {}
 const remove = () => {}
 </script>
 
