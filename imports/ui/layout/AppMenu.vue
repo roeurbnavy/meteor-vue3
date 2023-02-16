@@ -3,7 +3,7 @@
     <template v-for="(item, i) in menu" :key="i">
       <v-list-item
         :value="item"
-        rounded="shaped"
+        rounded="xl"
         :active="$route.name == item.name"
         @click="routeClick(item)"
       >
@@ -28,7 +28,7 @@ const menu = [
     icon: 'fa-solid fa-gauge',
   },
   {
-    name: '',
+    name: 'customer',
     label: 'Customer',
     icon: 'fa-solid fa-people-group',
   },

@@ -10,9 +10,9 @@ export const router = createRouter({
       component: () => import('./Dashboard.vue'),
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
+      path: '/customer',
+      name: 'customer',
+      component: () => import('./CustomerForm.vue'),
     },
     {
       path: '/about',
