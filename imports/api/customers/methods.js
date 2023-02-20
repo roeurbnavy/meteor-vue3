@@ -6,24 +6,23 @@ export const insertCustomer1 = new ValidatedMethod({
   name: 'insertCustomer1',
   mixins: [],
   validate:
-  // Customer.schema.validator(),
-  new SimpleSchema({
-    name: String,
-    telephone: {
-      type: String,
-      optional: true,
-    },
-    address: {
-      type: String,
-      optional: true,
-    },
-    status: String,
-  }).validator(),
+    // Customer.schema.validator(),
+    new SimpleSchema({
+      name: String,
+      telephone: {
+        type: String,
+        optional: true,
+      },
+      address: {
+        type: String,
+        optional: true,
+      },
+      status: String,
+    }).validator(),
   run(doc) {
     if (!Meteor.isServer) return false
 
     try {
-
       // return Customer.insert(doc)
     } catch (error) {
       console.log('error', error)
@@ -33,11 +32,28 @@ export const insertCustomer1 = new ValidatedMethod({
 })
 
 Meteor.methods({
-  findCustomers(selector) {
+  findCustomers({selector, page, rowsPerPage}) {
     if (!Meteor.isServer) return false
     selector = selector || {}
+    const limit = rowsPerPage === 0 ? Number.MAX_SAFE_INTEGER : rowsPerPage
+    const skip = rowsPerPage * (page - 1)
 
-    return Customer.find(selector).fetch()
+    const data = Customer.aggregate([
+      {
+        $match: selector,
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: limit,
+      },
+    ])
+    const total = Customer.find(selector).count()
+    return { data, total }
+  },
+  getCustomerById(id){
+return Customer.findOne({_id:id})
   },
   insertCustomer(doc) {
     // validate method
@@ -86,7 +102,6 @@ Meteor.methods({
     if (!Meteor.isServer) return false
 
     try {
-      console.log('doc', doc)
       return Customer.update({ _id: doc._id }, { $set: doc })
     } catch (error) {
       console.log('error', error)

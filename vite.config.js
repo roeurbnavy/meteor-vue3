@@ -1,11 +1,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
-
+import {quasar,transformAssetUrls} from '@quasar/vite-plugin'
 export default defineConfig({
   plugins: [
-    vue(),
-    vuetify({ autoImport: true }), // Enabled by default
+    vue({
+      template: {transformAssetUrls}
+    }),
+    // quasar({
+    //   // sassVariables:'imports/ui/styles/quasar.variables.sass'
+    // })
   ],
   meteor: {
     clientEntry: 'imports/main.js',

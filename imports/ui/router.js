@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from './Home.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -7,22 +6,22 @@ export const router = createRouter({
     {
       path: '/',
       name: 'dashboard',
-      component: () => import('./Dashboard.vue'),
+      component: () => import('./pages/Dashboard.vue'),
     },
     {
       path: '/customer',
       name: 'customer',
-      component: () => import('./CustomerForm.vue'),
+      component: () => import('./pages/Customers.vue'),
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('./About.vue'),
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('./Login.vue'),
-    },
+    // {
+    //   path: '/about',
+    //   name: 'about',
+    //   component: () => import('./About.vue'),
+    // },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: () => import('./Login.vue'),
+    // },
   ],
 })
