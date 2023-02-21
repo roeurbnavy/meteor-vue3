@@ -7,7 +7,7 @@
   >
     <q-card style="width: 70%; max-width: 80vw">
       <q-card-section>
-        <div class="text-h6">Medium</div>
+        <div class="text-h6">Customer</div>
       </q-card-section>
 
       <q-card-section>
@@ -55,7 +55,7 @@
       <q-card-actions align="right" class="bg-white text-teal">
         <div class="text-right q-gutter-x-md">
           <q-btn color="primary" class="mr-4" @click="submit"> Save </q-btn>
-          <q-btn color="red" @click="remove"> Remove </q-btn>
+          <q-btn v-if="showId" color="red" @click="remove"> Remove </q-btn>
           <q-btn outline color="primary" @click="cancel"> Cancel </q-btn>
         </div>
       </q-card-actions>
@@ -77,9 +77,11 @@ const $q = useQuasar()
 const props = defineProps({
   dialog: {
     type: Boolean,
+    default: true,
   },
   showId: {
     type: String,
+    default: null,
   },
 })
 

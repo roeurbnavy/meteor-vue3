@@ -43,13 +43,14 @@
               expand-icon-class="hidden"
               @click="pushRouter(menuItem.route)"
             >
-              <template slot="header">
+              <template #header>
                 <q-item-section v-if="menuItem.icon" avatar>
                   <q-icon :name="menuItem.icon" size="16px" />
                 </q-item-section>
                 <q-item-section>{{ menuItem.title }}</q-item-section>
                 <q-item-section side>
                   <q-icon name="keyboard_arrow_right" />
+                  <q-icon name="fa-light fa-angle-right" />
                 </q-item-section>
               </template>
 
