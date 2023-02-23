@@ -53,8 +53,8 @@
       </q-card-section>
 
       <q-card-actions align="right" class="bg-white text-teal">
-        <div class="text-right q-gutter-x-md">
-          <q-btn color="primary" class="mr-4" @click="submit"> Save </q-btn>
+        <div class="text-right q-gutter-sm">
+          <q-btn color="primary" @click="submit"> Save </q-btn>
           <q-btn v-if="showId" color="red" @click="remove"> Remove </q-btn>
           <q-btn outline color="primary" @click="cancel"> Cancel </q-btn>
         </div>
@@ -100,8 +100,34 @@ const visibleDialog = ref(false)
 const rules = {
   name: [
     (v) => !!v || 'Name is required',
-    (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    async (value) => {
+      let selector = {
+        // name: {
+        //   // $regex: new RegExp('^' + value.replace(/%/g, '.*') + '$', 'i'),
+        //   $regex: new RegExp(value, 'i'),
+        // },
+        name: value,
+      }
+      if (props.showId) {
+        selector._id = { $ne: props.showId }
+      }
+
+      const res = await checkExist(selector)
+      return !res || 'Exist name'
+    },
   ],
+}
+
+const checkExist = (selector) => {
+  return new Promise((resolve, reject) => {
+    Meteor.call('checkExist', { selector }, (err, res) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(res)
+      }
+    })
+  })
 }
 
 const submit = async () => {
@@ -151,7 +177,7 @@ const remove = () => {
       push: true,
     },
   }).onOk(() => {
-    Meteor.call('removeCustomer', props.showId, (err, res) => {
+    Meteor.call('removeCustomer', { id: props.showId }, (err, res) => {
       if (err) {
         Notify.error({ message: err.reason || err })
       } else {
@@ -166,12 +192,13 @@ const remove = () => {
 const reset = () => {
   // refForm.value.resetValidation()
   delete form.value._id
-  refForm.value.reset()
+  refForm.value?.reset()
   form.value.status = 'active'
 }
 
 // cancel
 const cancel = () => {
+  reset()
   emit('closed', false)
 }
 

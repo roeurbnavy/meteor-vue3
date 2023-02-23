@@ -32,7 +32,7 @@ export const insertCustomer1 = new ValidatedMethod({
 })
 
 Meteor.methods({
-  findCustomers({selector, page, rowsPerPage}) {
+  findCustomers({ selector, page, rowsPerPage }) {
     if (!Meteor.isServer) return false
     selector = selector || {}
     const limit = rowsPerPage === 0 ? Number.MAX_SAFE_INTEGER : rowsPerPage
@@ -52,8 +52,11 @@ Meteor.methods({
     const total = Customer.find(selector).count()
     return { data, total }
   },
-  getCustomerById(id){
-return Customer.findOne({_id:id})
+  checkExist({selector}) {
+    return Customer.findOne(selector)
+  },
+  getCustomerById(id) {
+    return Customer.findOne({ _id: id })
   },
   insertCustomer(doc) {
     // validate method
@@ -108,12 +111,12 @@ return Customer.findOne({_id:id})
       throw new Meteor.Error('Update customer error', error)
     }
   },
-  removeCustomer(id) {
+  removeCustomer({ id }) {
     // validate method
     // Customer.schema.validate(doc)
-    // new SimpleSchema({
-    //   id: String,
-    // }).validate(id)
+    new SimpleSchema({
+      id: String,
+    }).validate({ id })
 
     if (!Meteor.isServer) return false
 
