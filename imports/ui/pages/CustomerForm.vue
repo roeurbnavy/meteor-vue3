@@ -87,14 +87,15 @@ const props = defineProps({
 
 const emit = defineEmits(['closed'])
 
+const initForm = {
+  name: '',
+  address: '',
+  telephone: '',
+  status: 'active',
+}
 // data properties
 const refForm = ref()
-const form = ref({
-  name: '',
-  telephone: '',
-  address: '',
-  status: 'active',
-})
+const form = ref({ ...initForm })
 const visibleDialog = ref(false)
 
 const rules = {
@@ -149,7 +150,6 @@ const insert = () => {
       Notify.error({ message: err.reason || err })
     } else {
       Notify.success({ message: 'Success' })
-      reset()
       cancel()
     }
   })
@@ -161,7 +161,6 @@ const update = () => {
       Notify.error({ message: err.reason || err })
     } else {
       Notify.success({ message: 'Success' })
-      reset()
       cancel()
     }
   })
@@ -188,12 +187,12 @@ const remove = () => {
     //
   })
 }
-
 const reset = () => {
   // refForm.value.resetValidation()
+  // refForm.value.reset()
+  // console.log(refForm.value)
   delete form.value._id
-  refForm.value?.reset()
-  form.value.status = 'active'
+  form.value = { ...initForm }
 }
 
 // cancel

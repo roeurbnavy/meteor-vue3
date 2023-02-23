@@ -50,7 +50,6 @@
                 <q-item-section>{{ menuItem.title }}</q-item-section>
                 <q-item-section side>
                   <q-icon name="keyboard_arrow_right" />
-                  <q-icon name="fa-light fa-angle-right" />
                 </q-item-section>
               </template>
 

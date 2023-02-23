@@ -42,8 +42,7 @@ export default [
       {
         title: 'Employee',
         route:{name: ''},
-        // icon: 'fa-solid fa-gauge',
-        icon:'far fa-tachometer'
+        icon: 'fa-solid fa-users',
       },
     ]
   },
