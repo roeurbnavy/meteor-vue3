@@ -11,14 +11,21 @@
   "dependencies": {
     "@babel/runtime": "^7.17.9",
     "@quasar/extras": "^1.15.11",
+    "bcrypt": "^5.1.0",
+    "chart.js": "^4.2.1",
     "lodash": "^4.17.21",
     "meteor-node-stubs": "^1.2.1",
+    "moment": "^2.29.4",
+    "printd": "^1.6.0",
     "quasar": "^2.11.6",
     "simpl-schema": "^3.4.1",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.45",
+    "vue-chartjs": "^5.2.0",
     "vue-meteor-tracker": "^3.0.0-beta.7",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuex": "^4.1.0",
+    "yup": "^1.0.2"
   },
   "meteor": {
     "mainModule": {

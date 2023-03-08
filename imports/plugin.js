@@ -1,3 +1,5 @@
+import router from './router'
+import store from './store'
 // Quasar
 import { Quasar, AppFullscreen, Notify, Dialog, LoadingBar } from 'quasar'
 
@@ -10,6 +12,9 @@ import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
 export default (app) => {
+  app.use(router)
+  app.use(store)
+
   app.use(Quasar, {
     plugins: {
       AppFullscreen,

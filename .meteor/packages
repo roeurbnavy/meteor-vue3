@@ -23,11 +23,23 @@ hot-module-replacement@0.5.2 # Update client in development without reloading th
 
 static-html@1.3.2 # Define static page content in .html files
 vite:bundler
-accounts-2fa
-accounts-password
-accounts-passwordless
 fetch
+less
+
+# User
+
+accounts-password
+accounts-base
+
+# Collection
+
 aldeed:collection2
 sakulstra:aggregate
+
+# Method
+
 mdg:validated-method
-less
+
+# Storage
+
+session

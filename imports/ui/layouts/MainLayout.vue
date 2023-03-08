@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import SideBar from './SideBar.vue'
 import Notification from './_Notification.vue'
+import AdminSetting from './_AdminSetting.vue'
+import Breadcrumb from './_Breadcrumb.vue'
 
 const leftDrawerOpen = ref(false)
 const toggleLeftDrawer = () => {
@@ -15,7 +17,7 @@ const stateChange = (val) => {
 <template>
   <q-layout view="lHr LpR lfr">
     <!-- Header -->
-    <q-header elevated class="bg-primary text-white">
+    <q-header elevated class="bg-white text-dark">
       <q-toolbar>
         <q-btn
           flat
@@ -26,10 +28,13 @@ const stateChange = (val) => {
           icon="menu"
         />
 
-        <q-toolbar-title> Title </q-toolbar-title>
+        <q-toolbar-title class="app-breadcrumb-toolbar">
+          <Breadcrumb />
+        </q-toolbar-title>
         <div class="q-gutter-x-xs">
+          <!-- Notification -->
           <Notification />
-
+          <!-- Full screen -->
           <q-btn
             flat
             round
@@ -37,6 +42,9 @@ const stateChange = (val) => {
             @click="$q.fullscreen.toggle()"
             :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
           />
+
+          <!-- Admin Setting -->
+          <AdminSetting />
         </div>
       </q-toolbar>
     </q-header>
@@ -61,7 +69,7 @@ const stateChange = (val) => {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 .app-breadcrumb-toolbar {
-  min-height: 40px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  line-height: 1.5;
+  font-size: 14px;
 }
 </style>

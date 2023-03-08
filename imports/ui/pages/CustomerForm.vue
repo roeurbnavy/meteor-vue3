@@ -11,45 +11,90 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form ref="refForm">
-          <div class="row q-col-gutter-sm">
-            <div class="col">
-              <q-input
-                v-model="form.name"
-                :rules="rules.name"
-                label="Name *"
-              ></q-input>
+        <validate-form ref="refForm" :validation-schema="rules">
+          <q-form @submit.prevent>
+            <div class="row q-col-gutter-x-xl q-col-gutter-y-md">
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="row q-col-gutter-y-sm">
+                  <div class="col-12">
+                    <validate-field
+                      v-slot="{ value, field, errorMessage }"
+                      v-model="form.name"
+                      name="name"
+                    >
+                      <q-input
+                        :model-value="value"
+                        outlined
+                        dense
+                        label="Name *"
+                        v-bind="field"
+                        :error="!!errorMessage"
+                        :error-message="errorMessage"
+                      ></q-input>
+                    </validate-field>
+                  </div>
+                  <div class="col-12">
+                    <validate-field
+                      v-slot="{ value, field }"
+                      v-model="form.telephone"
+                      name="telephone"
+                    >
+                      <q-input
+                        :model-value="value"
+                        label="Telephone"
+                        :v-bind="field"
+                        outlined
+                        dense
+                        required
+                      ></q-input>
+                    </validate-field>
+                  </div>
+                </div>
+              </div>
 
-              <q-input
-                v-model="form.telephone"
-                label="Telephone"
-                required
-              ></q-input>
-            </div>
-            <div class="col">
-              <q-input
-                v-model="form.address"
-                label="Address"
-                required
-              ></q-input>
-              <div label="Status">
-                <fieldset>
-                  <legend>Sale type</legend>
-                  <q-radio
-                    v-model="form.status"
-                    label="Active"
-                    val="active"
-                  ></q-radio>
-                  <q-radio
-                    v-model="form.status"
-                    label="Inactive"
-                    val="inactive"
-                  ></q-radio>
-                </fieldset>
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <div class="row q-col-gutter-y-sm">
+                  <div class="col-12">
+                    <validate-field
+                      v-slot="{ value, field }"
+                      v-model="form.address"
+                      name="address"
+                    >
+                      <q-input
+                        :model-value="value"
+                        label="Address"
+                        outlined
+                        dense
+                        v-bind="field"
+                        required
+                      ></q-input>
+                    </validate-field>
+                  </div>
+                  <div class="col-12">
+                    <validate-field
+                      v-slot="{ value, field }"
+                      v-model="form.status"
+                      name="status"
+                    >
+                      <span class="text-grey-9" style="padding-right: 8px">
+                        Status
+                      </span>
+
+                      <q-option-group
+                        :model-value="value"
+                        :options="statusOpts"
+                        color="primary"
+                        v-bind="field"
+                        inline
+                        style="display: inline-block"
+                      />
+                    </validate-field>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </q-form>
+          </q-form>
+        </validate-form>
       </q-card-section>
 
       <q-card-actions align="right" class="bg-white text-teal">
@@ -72,6 +117,8 @@ export default {
 import Notify from '/imports/ui/lib/notify'
 import { ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
+import { Form as ValidateForm, Field as ValidateField } from 'vee-validate'
+import { object, string, number, array, ref as yupRef } from 'yup'
 
 const $q = useQuasar()
 const props = defineProps({
@@ -93,15 +140,21 @@ const initForm = {
   telephone: '',
   status: 'active',
 }
+const statusOpts = [
+  { label: 'Active', value: 'active' },
+  { label: 'Inactive', value: 'inactive' },
+]
 // data properties
 const refForm = ref()
 const form = ref({ ...initForm })
 const visibleDialog = ref(false)
 
-const rules = {
-  name: [
-    (v) => !!v || 'Name is required',
-    async (value) => {
+const rules = object({
+  name: string()
+    .min(4)
+    .test('exist', 'Name is required', (value) => {
+      if (!value) return true
+
       let selector = {
         // name: {
         //   // $regex: new RegExp('^' + value.replace(/%/g, '.*') + '$', 'i'),
@@ -113,11 +166,13 @@ const rules = {
         selector._id = { $ne: props.showId }
       }
 
-      const res = await checkExist(selector)
-      return !res || 'Exist name'
-    },
-  ],
-}
+      return checkExist(selector)
+        .then((res) => {
+          return !res
+        })
+        .catch(() => false)
+    }),
+})
 
 const checkExist = (selector) => {
   return new Promise((resolve, reject) => {
@@ -132,7 +187,7 @@ const checkExist = (selector) => {
 }
 
 const submit = async () => {
-  const valid = await refForm.value.validate()
+  const { valid } = await refForm.value.validate()
 
   if (valid) {
     if (form.value._id) {
