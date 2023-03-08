@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import _ from 'lodash'
+import { pick, concat } from 'lodash'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -46,7 +46,7 @@ const addParentRoute = (route) => {
   let parent = getParentRoute(route)
   // Check parent exist
   if (parent) {
-    return _.concat(addParentRoute(parent), parent)
+    return concat(addParentRoute(parent), parent)
   }
 
   return []
@@ -76,7 +76,7 @@ const getBreadcrumbs = (route) => {
 
   // Check params
   if (route.meta?.breadcrumb && route.meta?.breadcrumb?.params) {
-    crumb.route.params = _.pick(
+    crumb.route.params = pick(
       currentRoute.value.params,
       route.meta?.breadcrumb?.params
     )
@@ -84,7 +84,7 @@ const getBreadcrumbs = (route) => {
 
   // Check query
   if (route.meta?.breadcrumb && route.meta?.breadcrumb?.query) {
-    crumb.route.query = _.pick(
+    crumb.route.query = pick(
       currentRoute.value.query,
       route.meta.breadcrumb.query
     )

@@ -45,6 +45,16 @@ export default  [
   //   component: () => import('./About.vue'),
   // },
 
+  // NotFound
+  {
+    path: '/:catchAll(.*)',
+    name: 'notFound',
+    component: () => import('./pages/NotFound.vue'),
+    meta: {
+      title: 'Not Found',
+    },
+  },
+
   // Report
   {
     path: '/report',
