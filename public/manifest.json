@@ -1,0 +1,23 @@
+{
+  "short_name": "pos",
+  "name": "Rabbit POS",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/rabbit-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/rabbit-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "background_color": "#000000",
+  "scope": "/",
+  "theme_color": "#FFFFFF"
+}
