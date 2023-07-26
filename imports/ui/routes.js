@@ -1,83 +1,77 @@
+import Dashboard from "./pages/Dashboard.vue";
+import Login from "./pages/Login.vue";
 
-export default  [
+// Setting
+import AdimSetting from "./pages/AdminSetting.vue";
+
+// Not found
+import NotFound from "./pages/NotFound.vue";
+
+// Report
+import Report from "./reports/index.vue";
+import Sample from "./reports/Sample.vue";
+
+export default [
   {
-    path: '/',
-    name: 'Dashboard',
-    component: () => import('./pages/Dashboard.vue'),
+    path: "/",
+    name: "Dashboard",
+    component: Dashboard,
     meta: {
-      title: 'Dashboard',
+      title: "Dashboard",
     },
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('./pages/Login.vue'),
+    path: "/login",
+    name: "Login",
+    component: Login,
     meta: {
       public: true,
-      layout: 'Login',
+      layout: "Login",
     },
   },
   {
-    path: '/admin-setting/:activeCom?',
-    name: 'AdminSetting',
-    component: () => import('./pages/AdminSetting.vue'),
+    path: "/admin-setting/:activeCom?",
+    name: "AdminSetting",
+    component: AdimSetting,
     meta: {
-      title: 'Admin Setting',
+      title: "Admin Setting",
       breadcrumb: {
-        parent: 'Dashboard',
+        parent: "Dashboard",
       },
     },
   },
-  {
-    path: '/customer',
-    name: 'Customer',
-    component: () => import('./pages/Customers.vue'),
-    meta: {
-      title: 'Customer',
-      breadcrumb: {
-        parent: 'Dashboard',
-      },
-    },
-  },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   component: () => import('./About.vue'),
-  // },
 
   // NotFound
   {
-    path: '/:catchAll(.*)',
-    name: 'notFound',
-    component: () => import('./pages/NotFound.vue'),
+    path: "/:catchAll(.*)",
+    name: "notFound",
+    component: NotFound,
     meta: {
-      title: 'Not Found',
+      title: "Not Found",
     },
   },
 
   // Report
   {
-    path: '/report',
-    name: 'Report',
-    component: () => import('./reports/index.vue'),
+    path: "/report",
+    name: "Report",
+    component: Report,
     meta: {
-      title: 'Report',
+      title: "Report",
       breadcrumb: {
-        parent: 'Dashboard',
+        parent: "Dashboard",
       },
     },
   },
   {
-    path: '/sample',
-    name: 'Sample',
-    component: () => import('./reports/Sample.vue'),
+    path: "/sample",
+    name: "Sample",
+    component: Sample,
     meta: {
-      title: 'Sample',
+      title: "Sample",
       breadcrumb: {
-        parent: 'Report',
+        parent: "Report",
       },
     },
   },
-
-
-]
+];
