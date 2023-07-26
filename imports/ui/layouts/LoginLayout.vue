@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <q-page-container class="container">
+    <q-page-container class="p-container">
       <q-page>
         <div class="login-container">
           <div class="login-content">
@@ -25,31 +25,31 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 // Release version
 // import release from '../release'
 // Components
 
 export default {
-  name: 'LoginLayout',
+  name: "LoginLayout",
   data() {
     return {
-      copyright: `© 2014-${moment().format('YYYY')}
+      copyright: `© 2014-${moment().format("YYYY")}
                   Rabbit Technology (V 1.0)`,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
 // Variable
-$small-screen: 'only screen and (min-width: 0px) and (max-width: 1025px)';
-$small-screen--height: 'only screen and (min-height: 0px) and (max-height: 505px)';
+$small-screen: "only screen and (min-width: 0px) and (max-width: 1025px)";
+$small-screen--height: "only screen and (min-height: 0px) and (max-height: 505px)";
 
 // Media screen width
-.container {
+.p-container {
   height: 100vh;
-  background: url('/images/bg.svg') no-repeat center center fixed;
+  background: url("/images/bg.svg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
