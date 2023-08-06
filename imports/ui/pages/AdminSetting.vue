@@ -2,9 +2,15 @@
   <div>
     <div class="row">
       <div class="col">
-        <q-card flat bordered>
+        <q-card
+          flat
+          bordered
+        >
           <q-item class="text-grey-9">
-            <q-item-section :key="`${activeCom}`" class="text-body1">
+            <q-item-section
+              :key="`${activeCom}`"
+              class="text-body1"
+            >
               {{ comTitle }}
             </q-item-section>
           </q-item>
@@ -12,7 +18,10 @@
           <q-separator />
 
           <!-- Dynamic component -->
-          <component :is="activeCom" class="admin-setting-content" />
+          <component
+            :is="activeCom"
+            class="admin-setting-content"
+          />
         </q-card>
       </div>
     </div>
@@ -29,6 +38,7 @@ export default {
     UserProfile: defineAsyncComponent(() =>
       import('./admin-setting/UserProfile.vue')
     ),
+    Branch: defineAsyncComponent(() => import('./admin-setting/Branch.vue')),
     User: defineAsyncComponent(() => import('./admin-setting/User.vue')),
     // Employee: defineAsyncComponent(() => import('./admin-setting/User.vue')),
   },
@@ -45,6 +55,13 @@ export default {
         icon: 'far fa-user-circle',
         route: { name: 'AdminSetting', params: { activeCom: 'profile' } },
         component: 'UserProfile',
+      },
+      {
+        title: 'Branch',
+        activeName: 'branch',
+        icon: 'far fa-users',
+        route: { name: 'AdminSetting', params: { activeCom: 'branch' } },
+        component: 'Branch',
       },
       {
         title: 'Employee',

@@ -35,62 +35,29 @@
           </q-input>
         </template>
 
-        <template #body-cell-username="props">
+        <template #body-cell-name="props">
           <q-td :props="props">
             <span
               class="ra-text-link"
               @click="edit(props.row)"
             >
-              {{ props.row.username }}
+              {{ props.row.name }}
             </span>
           </q-td>
         </template>
 
-        <template #body-cell-fullName="props">
+        <template #body-cell-checkIn="props">
           <q-td :props="props">
             <span>
-              {{ props.row.profile.fullName }}
+              {{ formatTime(props.row.checkIn) }}
             </span>
           </q-td>
         </template>
 
-        <template #body-cell-email="props">
+        <template #body-cell-checkOut="props">
           <q-td :props="props">
             <span>
-              {{ props.row.emails[0].address }}
-            </span>
-          </q-td>
-        </template>
-
-        <template #body-cell-allowedBranches="props">
-          <q-td :props="props">
-            <span>
-              {{ formatBranches(props.row.allowedBranches) }}
-            </span>
-          </q-td>
-        </template>
-
-        <template #body-cell-roleGroup="props">
-          <q-td :props="props">
-            <span>
-              {{ props.row.profile.roleGroup }}
-            </span>
-          </q-td>
-        </template>
-
-        <template #body-cell-expiryDay="props">
-          <q-td :props="props">
-            <span>
-              {{ props.row.profile.expiryDay }}
-              ({{ formatDate(props.row.profile.expiryDate) }})
-            </span>
-          </q-td>
-        </template>
-
-        <template #body-cell-status="props">
-          <q-td :props="props">
-            <span>
-              {{ props.row.profile.status }}
+              {{ formatTime(props.row.checkOut) }}
             </span>
           </q-td>
         </template>
@@ -110,8 +77,8 @@
 import { ref, defineAsyncComponent, nextTick, onMounted, shallowRef } from 'vue'
 import moment from 'moment'
 import Notify from '../../lib/notify.js'
-const UserForm = shallowRef(
-  defineAsyncComponent(() => import('./UserForm.vue'))
+const BranchForm = shallowRef(
+  defineAsyncComponent(() => import('./BranchForm.vue'))
 )
 
 // Composables
@@ -128,31 +95,32 @@ const pagination = ref({
 const filter = ref('')
 const columns = ref([
   {
-    name: 'username',
-    label: 'Username',
+    name: 'name',
+    label: 'Name',
     align: 'left',
-    field: 'username',
+    field: 'name',
     sortable: true,
   },
   {
-    name: 'fullName',
+    name: 'Address',
     align: 'left',
-    label: 'Full Name',
-    field: 'profile.fullName',
+    label: 'Address',
+    field: 'address',
     sortable: true,
   },
-  { name: 'email', label: 'Email', align: 'left', field: 'emails' },
   {
-    name: 'allowedBranches',
-    label: 'Branch',
+    name: 'checkIn',
     align: 'left',
-    field: 'allowedBranches',
+    label: 'Check In',
+    field: 'checkIn',
+    sortable: true,
   },
   {
-    name: 'status',
-    label: 'Status',
+    name: 'checkOut',
     align: 'left',
-    field: 'profile.status',
+    label: 'Check Out',
+    field: 'checkOut',
+    sortable: true,
   },
 ])
 
@@ -164,11 +132,8 @@ const visibleModal = ref(false)
 const showId = ref(null)
 
 const getDataTable = () => {
-  const { call } = useMethod('app.findUsers')
-  call({
-    selector: { username: { $ne: 'super' } },
-    options: { sort: { 'profile.fullName': 1 } },
-  })
+  const { call } = useMethod('fetchBranches')
+  call({})
     .then((result) => {
       dataTable.value = result
     })
@@ -181,7 +146,7 @@ const getDataTable = () => {
 const addNew = () => {
   visibleModal.value = true
   nextTick(() => {
-    currentModal.value = UserForm.value
+    currentModal.value = BranchForm.value
   })
 }
 
@@ -189,25 +154,12 @@ const edit = (row) => {
   showId.value = row._id
   visibleModal.value = true
   nextTick(() => {
-    currentModal.value = UserForm.value
+    currentModal.value = BranchForm.value
   })
 }
 
-const formatDate = (date) => {
-  return moment(date).format('DD/MM/YYYY')
-}
-
-const formatBranches = (branches) => {
-  let content = ''
-  branches.forEach((branch, index) => {
-    content += `${branch.name} `
-
-    if (index + 1 < branches.length) {
-      content += ','
-    }
-  })
-
-  return content
+const formatTime = (date) => {
+  return moment(date).format('HH:mm A')
 }
 
 const handleModelClose = () => {
