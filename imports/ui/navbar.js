@@ -25,7 +25,7 @@ export default [
         title: 'Branch',
         route: { name: 'AdminSetting', params: { activeCom: 'branch' } },
         group: 'admin',
-        icon: 'fa-solid fa-users',
+        icon: 'fa-solid fa-code-branch',
         // roles: ['admin'],
       },
       {
