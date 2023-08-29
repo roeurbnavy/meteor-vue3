@@ -7,31 +7,37 @@ export const initRoles = async () => {
     {
       name: 'insertBranch',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
     {
       name: 'updateBranch',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
     {
       name: 'removeBranch',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
     {
       name: 'insertRoleGroup',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
     {
       name: 'updateRoleGroup',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
     {
       name: 'removeRoleGroup',
       group: 'Admin',
+      title: 'Form',
       order: 5
     },
   ]
@@ -47,8 +53,5 @@ export const initRoles = async () => {
       // insert role group
       Role.insert(it)
     }
-
   }
-
-
 }
