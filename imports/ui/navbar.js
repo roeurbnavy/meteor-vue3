@@ -8,7 +8,7 @@ export default [
     title: 'Report',
     route: { name: 'Report' },
     icon: 'fa-solid fa-file-contract',
-    roles: ['viewReport','printReport'],
+    // roles: ['viewReport',],
   },
   {
     title: 'Admin Setting',
@@ -42,7 +42,7 @@ export default [
         route: { name: 'AdminSetting', params: { activeCom: 'user' } },
         group: 'admin',
         icon: 'fa-solid fa-users',
-        roles: ['insertUser,updateUser','removeUser'],
+        roles: ['insertUser','updateUser','removeUser'],
       },
       {
         title: 'Group',
