@@ -40,6 +40,8 @@ export default {
     ),
     Branch: defineAsyncComponent(() => import('./admin-setting/Branch.vue')),
     User: defineAsyncComponent(() => import('./admin-setting/User.vue')),
+    Group: defineAsyncComponent(() => import('./admin-setting/Group.vue')),
+
     // Employee: defineAsyncComponent(() => import('./admin-setting/User.vue')),
   },
   setup() {
@@ -76,6 +78,13 @@ export default {
         icon: 'far fa-users',
         route: { name: 'AdminSetting', params: { activeCom: 'user' } },
         component: 'User',
+      },
+      {
+        title: 'Group',
+        activeName: 'group',
+        icon: 'far fa-users',
+        route: { name: 'AdminSetting', params: { activeCom: 'group' } },
+        component: 'Group',
       },
     ])
 
