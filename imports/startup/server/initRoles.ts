@@ -40,7 +40,27 @@ export const initRoles = async () => {
       title: 'Form',
       order: 5
     },
+    {
+      name: 'insertUser',
+      group: 'Admin',
+      title: 'Form',
+      order: 5
+    },
+    {
+      name: 'updateUser',
+      group: 'Admin',
+      title: 'Form',
+      order: 5
+    },
+    {
+      name: 'removeUser',
+      group: 'Admin',
+      title: 'Form',
+      order: 5
+    },
+  
   ]
+
 
   // Loop check exist role
   for (let i = 0; i < roles.length; i++) {
